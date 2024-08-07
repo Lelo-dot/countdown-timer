@@ -1,0 +1,70 @@
+﻿@page
+@model IndexModel
+@{
+    Layout = null; // This removes the default layout
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Live Counter</title>
+    <!-- Link to VT323 font from Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            font-family: 'VT323', monospace;
+            background-color: #FF779F;
+            color: #fff;
+            margin: 0; /* Remove any default margin */
+        }
+
+        .counter {
+            text-align: center;
+        }
+
+        .unit {
+            font-size: 2em;
+        }
+    </style>
+</head>
+<body>
+    <div class="counter">
+        <div id="years" class="unit"></div>
+        <div id="months" class="unit"></div>
+        <div id="days" class="unit"></div>
+        <div id="hours" class="unit"></div>
+        <div id="minutes" class="unit"></div>
+        <div id="seconds" class="unit"></div>
+    </div>
+    <script>
+        function updateCounter() {
+            const startDate = new Date('April 1, 2023 00:00:00');
+            const now = new Date();
+            const diff = now - startDate;
+
+            const years = Math.floor(diff / (1000 * 60 * 60 * 24 * 365.25));
+            const months = Math.floor(diff / (1000 * 60 * 60 * 24 * 30.44)) % 12;
+            const days = Math.floor(diff / (1000 * 60 * 60 * 24)) % 30;
+            const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+            const minutes = Math.floor((diff / 1000 / 60) % 60);
+            const seconds = Math.floor((diff / 1000) % 60);
+
+            document.getElementById('years').textContent = `${years} Year${years === 1 ? '' : 's'}`;
+            document.getElementById('months').textContent = `${months} Month${months === 1 ? '' : 's'}`;
+            document.getElementById('days').textContent = `${days} Day${days === 1 ? '' : 's'}`;
+            document.getElementById('hours').textContent = `${hours} Hour${hours === 1 ? '' : 's'}`;
+            document.getElementById('minutes').textContent = `${minutes} Minute${minutes === 1 ? '' : 's'}`;
+            document.getElementById('seconds').textContent = `${seconds} Second${seconds === 1 ? '' : 's'}`;
+        }
+
+        setInterval(updateCounter, 1000);
+        updateCounter();
+    </script>
+</body>
+</html>
